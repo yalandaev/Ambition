@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Ambition.WorkerHost")]
+[assembly: AssemblyTitle("Ambition.Worker.Quartz")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Ambition.WorkerHost")]
+[assembly: AssemblyProduct("Ambition.Worker.Quartz")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a4718628-cbf6-426b-88f5-6fe5e542e64e")]
+[assembly: Guid("230f19ae-69cb-41c3-a2fb-7342feea7e50")]
 
 // Version information for an assembly consists of the following four values:
 //

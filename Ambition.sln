@@ -1,9 +1,16 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambition.WorkerHost", "Ambition.WorkerHost\Ambition.WorkerHost.csproj", "{6D82DF8A-7FA7-4A2C-BF21-E2D468D29544}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambition.WorkerHostService", "Ambition.WorkerHostService\Ambition.WorkerHostService.csproj", "{6D82DF8A-7FA7-4A2C-BF21-E2D468D29544}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambition.WorkerHost", "Ambition.WorkerHost\Ambition.WorkerHost.csproj", "{A4718628-CBF6-426B-88F5-6FE5E542E64E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workers", "Workers", "{D0B3EE0D-211C-4D98-AF60-32A68F4E581F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9DF61F90-F2EC-4A06-862F-DE1003D49E40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambition.Worker.Quartz", "Ambition.Worker.Quartz\Ambition.Worker.Quartz.csproj", "{230F19AE-69CB-41C3-A2FB-7342FEEA7E50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +22,20 @@ Global
 		{6D82DF8A-7FA7-4A2C-BF21-E2D468D29544}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D82DF8A-7FA7-4A2C-BF21-E2D468D29544}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D82DF8A-7FA7-4A2C-BF21-E2D468D29544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4718628-CBF6-426B-88F5-6FE5E542E64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4718628-CBF6-426B-88F5-6FE5E542E64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4718628-CBF6-426B-88F5-6FE5E542E64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4718628-CBF6-426B-88F5-6FE5E542E64E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{230F19AE-69CB-41C3-A2FB-7342FEEA7E50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{230F19AE-69CB-41C3-A2FB-7342FEEA7E50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{230F19AE-69CB-41C3-A2FB-7342FEEA7E50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{230F19AE-69CB-41C3-A2FB-7342FEEA7E50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{230F19AE-69CB-41C3-A2FB-7342FEEA7E50} = {D0B3EE0D-211C-4D98-AF60-32A68F4E581F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E6AF6A81-5005-44B4-91A0-49287922AC09}
