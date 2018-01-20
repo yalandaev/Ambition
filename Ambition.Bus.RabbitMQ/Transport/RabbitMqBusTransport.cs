@@ -6,6 +6,9 @@ using RabbitMQ.Client;
 
 namespace Ambition.Bus.RabbitMQ.Transport
 {
+    /// <summary>
+    /// IBusTransport implementation using RabbitMQ
+    /// </summary>
     public class RabbitMqBusTransport : IBusTransport
     {
         protected readonly ISerializer _serializer;
@@ -15,28 +18,63 @@ namespace Ambition.Bus.RabbitMQ.Transport
             _serializer = serializer;
         }
 
-        public void Subscribe<TType, THandler>(string exchangeName, string queueName, int consumersCount)
+        /// <summary>
+        /// Send command message to queue
+        /// </summary>
+        /// <param name="command">Command</param>
+        public void SendCommand(ICommand command)
+        {
+            SendMessage("Commands", command.GetType().ToString(), _serializer.Serialize(command));
+        }
+
+        /// <summary>
+        /// Send event message to queue
+        /// </summary>
+        /// <param name="event">Event</param>
+        public void PublishEvent(IEvent @event)
+        {
+            SendMessage("Events", @event.GetType().ToString(), _serializer.Serialize(@event));
+        }
+
+        /// <summary>
+        /// Subscribe handler
+        /// </summary>
+        /// <typeparam name="TType">Message type</typeparam>
+        /// <typeparam name="THandler">Message handler type</typeparam>
+        public void Subscribe<TType, THandler>()
         {
             Console.WriteLine($"Subscribe { typeof(TType) } to handler { typeof(THandler) }");
+
             if (typeof(IEvent).IsAssignableFrom(typeof(TType)))
             {
-                for (int i = 0; i < consumersCount; i++)
-                {
-                    Consumer consumer = new EventConsumer<TType, THandler>(exchangeName, queueName, _serializer);
-                    consumer.StartConsume();
-                }
+                Subscribe<TType, THandler>(exchangeName: "Events", queueName: typeof(THandler).ToString());
             }
             if (typeof(ICommand).IsAssignableFrom(typeof(TType)))
             {
-                for (int i = 0; i < consumersCount; i++)
-                {
-                    Consumer consumer = new CommandConsumer<TType, THandler>(exchangeName, queueName, _serializer);
-                    consumer.StartConsume();
-                }
+                Subscribe<TType, THandler>(exchangeName: "Commands", queueName: typeof(TType).ToString());
             }
         }
 
-        public void SendMessage(string exchangeName, string routingKey, string message)
+        /// <summary>
+        /// Subscribe message handler to queue
+        /// </summary>
+        /// <typeparam name="TType">Message type</typeparam>
+        /// <typeparam name="THandler">Message handler type</typeparam>
+        /// <param name="exchangeName">Exchange name</param>
+        /// <param name="queueName">Queue name</param>
+        private void Subscribe<TType, THandler>(string exchangeName, string queueName)
+        {
+            Consumer consumer = new BusConsumer<TType, THandler>(exchangeName, queueName, _serializer);
+            consumer.StartConsume();
+        }
+
+        /// <summary>
+        /// Enqueue message
+        /// </summary>
+        /// <param name="exchangeName">Exchange name</param>
+        /// <param name="routingKey">Routing key</param>
+        /// <param name="message">Message to send</param>
+        private void SendMessage(string exchangeName, string routingKey, string message)
         {
             Console.WriteLine($"Send message: { message }");
 

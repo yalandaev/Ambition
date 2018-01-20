@@ -1,23 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Ambition.Shared;
 using RabbitMQ.Client;
 
 namespace Ambition.Bus.RabbitMQ.Transport
 {
-    public class EventConsumer<TEvent, THandler> : Consumer
+    class BusConsumer<TMessage, THandler> : Consumer
     {
         private THandler _handler;
 
-        public EventConsumer(string exchangeName, string queueName, ISerializer serializer) : base(exchangeName, queueName, serializer)
+        public BusConsumer(string exchangeName, string queueName, ISerializer serializer) : base(exchangeName, queueName, serializer)
         {
             _handler = (THandler)Activator.CreateInstance(typeof(THandler));
         }
 
         protected override void DeclareExchange()
         {
-            string routingKey = typeof(TEvent).ToString();
+            string routingKey = typeof(TMessage).ToString();
             _channel.ExchangeDeclare(exchange: _exchangeName, type: "topic");
             _channel.QueueDeclare(queue: _queueName,
                 durable: false,
@@ -36,7 +39,7 @@ namespace Ambition.Bus.RabbitMQ.Transport
                 var body = ea.Body;
                 var message = Encoding.UTF8.GetString(body);
 
-                TEvent command = _serializer.Deserialize<TEvent>(message);
+                TMessage command = _serializer.Deserialize<TMessage>(message);
 
                 MethodInfo methodInfo = _handler.GetType().GetMethod("Handle");
                 object[] parametersArray = new object[] { command };
