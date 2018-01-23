@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Ambition.WebApi.Models
+namespace Ambition.WebApi.Contract
 {
-    public class User
+    public class GetUserResourceModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string Phone { get; set; }
     }
 }

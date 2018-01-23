@@ -26,13 +26,13 @@ namespace Ambition.WebApi.Providers
                     var claims = new List<Claim>()
                     {
                         new Claim(ClaimTypes.Sid, Convert.ToString(user.Id)),
-                        new Claim(ClaimTypes.Name, user.Name),
+                        new Claim(ClaimTypes.Name, user.FirstName),
                         new Claim(ClaimTypes.Email, user.Email)
                     };
                     ClaimsIdentity oAuthIdentity = new ClaimsIdentity(claims,
                                 Startup.OAuthOptions.AuthenticationType);
 
-                    var properties = CreateProperties(user.Name);
+                    var properties = CreateProperties(user.FirstName);
                     var ticket = new AuthenticationTicket(oAuthIdentity, properties);
                     context.Validated(ticket);
                 }
